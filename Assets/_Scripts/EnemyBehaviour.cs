@@ -21,10 +21,8 @@ public class EnemyBehaviour : MonoBehaviour
 		GetComponent<Renderer>().material.color = Random.ColorHSV();
 		NavMeshAgent agent = GetComponent<NavMeshAgent>();
 		agent.SetDestination(targetPoint.position);
-
-		health = Random.Range(waveSpawn.minHealth, waveSpawn.maxHealth);
-		goldDrop = health;
-		agent.speed = 1f / (health * 2f) * 5f;
+		agent.speed = waveSpawn.speed;
+		health = Mathf.FloorToInt(waveSpawn.health);
 	}
 
 	void LateUpdate()

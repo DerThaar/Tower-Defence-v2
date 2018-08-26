@@ -6,7 +6,7 @@ public class BuildTower : MonoBehaviour
 {
 	[SerializeField] GameObject[] prefab;
 	[SerializeField] GameObject[] building;
-	[SerializeField] int[] buildCost;
+	public int[] buildCost;
 	bool build;
 	Vector3 position;
 	GameObject previewBuilding;
@@ -36,8 +36,9 @@ public class BuildTower : MonoBehaviour
 			currentPreviewBuilding.transform.position = hitInfo.point;
 
 			if (Input.GetButtonUp("Mouse Left") && hitInfo.collider && currentBuildCost <= stats.currentMoney)
-			{
-				Instantiate(newBuilding, hitInfo.point, newBuilding.transform.rotation);
+			{				
+				GameObject instantiatedBuilding = Instantiate(newBuilding, hitInfo.point, newBuilding.transform.rotation);
+				instantiatedBuilding.name = newBuilding.name;
 				stats.currentMoney -= currentBuildCost;
 			}
 
@@ -55,19 +56,15 @@ public class BuildTower : MonoBehaviour
 	{
 		previewBuilding = prefab[0];
 		newBuilding = building[0];
-		currentBuildCost = buildCost[0];
+		currentBuildCost = buildCost[0];		
 		Instantiate();
 	}
 
-	public void BuildTower2()
+	public void BuildAoETower1()
 	{
 		previewBuilding = prefab[1];
+		newBuilding = building[1];
+		currentBuildCost = buildCost[1];
 		Instantiate();
-	}
-
-	public void BuildTower3()
-	{
-		previewBuilding = prefab[2];
-		Instantiate();
-	}
+	}	
 }

@@ -3,11 +3,12 @@ using UnityEngine;
 
 public class AoETowerBehaviour : MonoBehaviour
 {
-	[SerializeField] int damage;
-	[SerializeField] float detectionRadius;
-	[SerializeField] float shootTimer;
-	[SerializeField] int numberOfProjectiles;
 	[SerializeField] LayerMask layer;
+	public int damage;
+	public float detectionRadius;
+	public float shootTimer;
+	public int numberOfProjectiles;
+	public int destroyedEnemies;
 	GameObject[] targets = new GameObject[8];
 	Quaternion[] shootQuaternions;
 	Vector3[] shootDirections;
@@ -54,9 +55,11 @@ public class AoETowerBehaviour : MonoBehaviour
 					if (targets[i].GetComponent<EnemyBehaviour>().health > 0)
 					{
 						targets[i].GetComponent<EnemyBehaviour>().health -= damage;
+
 						if (targets[i].GetComponent<EnemyBehaviour>().health <= 0)
 						{
 							enemiesInRange.Remove(targets[i]);
+							destroyedEnemies++;
 						}
 					}
 				}

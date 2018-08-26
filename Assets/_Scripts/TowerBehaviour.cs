@@ -3,9 +3,11 @@ using UnityEngine;
 
 public class TowerBehaviour : MonoBehaviour
 {
-	[SerializeField] int damage;
-	[SerializeField] float detectionRadius;
-	[SerializeField] float shootTimer;
+	public int damage;
+	public float detectionRadius;
+	public float shootTimer;
+	public int numberOfProjectiles = 1;
+	public int destroyedEnemies;
 	GameObject target;
 	List<GameObject> enemiesInRange = new List<GameObject>();
 	float timer;
@@ -36,7 +38,7 @@ public class TowerBehaviour : MonoBehaviour
 				lookTarget.y = transform.GetChild(0).transform.position.y;
 				transform.GetChild(0).LookAt(lookTarget);
 			}
-		}		
+		}
 	}
 
 	void Shoot()
@@ -49,9 +51,11 @@ public class TowerBehaviour : MonoBehaviour
 			if (target.GetComponent<EnemyBehaviour>().health > 0)
 			{
 				target.GetComponent<EnemyBehaviour>().health -= damage;
+
 				if (target.GetComponent<EnemyBehaviour>().health <= 0)
 				{
 					enemiesInRange.Remove(target);
+					destroyedEnemies++;
 				}
 			}
 		}
