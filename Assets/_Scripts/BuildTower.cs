@@ -7,11 +7,11 @@ public class BuildTower : MonoBehaviour
 	[SerializeField] GameObject[] prefab;
 	[SerializeField] GameObject[] building;
 	public int[] buildCost;
+	public GameObject currentPreviewBuilding;
+	GameObject previewBuilding;
 	bool build;
 	Vector3 position;
-	GameObject previewBuilding;
 	GameObject newBuilding;
-	GameObject currentPreviewBuilding;
 	int currentBuildCost;
 	Stats stats;
 
@@ -22,7 +22,7 @@ public class BuildTower : MonoBehaviour
 
 	void Update()
 	{
-		if (Input.GetButtonDown("Mouse Right") && previewBuilding != null)
+		if (Input.GetButtonUp("Mouse Right") && previewBuilding != null)
 		{
 			Destroy(currentPreviewBuilding);
 			build = false;

@@ -1285,7 +1285,7 @@ MonoBehaviour:
   shootTimer: 0.75
   numberOfProjectiles: 5
   destroyedEnemies: 0
-  upgradeCost: 150
+  upgradeCost: 120
   upgraded: 0
 --- !u!135 &135445955035717288
 SphereCollider:

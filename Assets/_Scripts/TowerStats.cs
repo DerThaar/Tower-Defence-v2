@@ -13,13 +13,14 @@ public class TowerStats : MonoBehaviour
 	[SerializeField] TextMeshProUGUI destroyedEnemies;
 	[SerializeField] TextMeshProUGUI upgradeText;
 	[SerializeField] Stats stats;
+	[SerializeField] BuildTower buildTower;
 	[SerializeField] Button upgradeButton;
 	GameObject currentTower;	
 
 
 	void Update()
 	{
-		if (Input.GetButtonUp("Mouse Left"))
+		if (Input.GetButtonUp("Mouse Left") && buildTower.currentPreviewBuilding == null)
 		{
 
 			RaycastHit hitInfo;
@@ -39,7 +40,7 @@ public class TowerStats : MonoBehaviour
 				currentTower = null;
 			}
 		}
-		else if (Input.GetButtonDown("Mouse Right"))
+		else if (Input.GetButtonUp("Mouse Right"))
 		{
 			panel.SetActive(false);
 			currentTower = null;
@@ -88,7 +89,8 @@ public class TowerStats : MonoBehaviour
 			{
 				stats.currentMoney -= towerBehaviour.upgradeCost;
 				towerBehaviour.damage = 2;
-				towerBehaviour.shootTimer = 0.5f;
+				towerBehaviour.shootTimer = 0.25f;
+				currentTower.GetComponent<Renderer>().material.color = Color.blue;
 				towerBehaviour.upgraded = true;
 			}
 
@@ -99,11 +101,13 @@ public class TowerStats : MonoBehaviour
 			if (stats.currentMoney >= towerBehaviour.upgradeCost)
 			{
 				stats.currentMoney -= towerBehaviour.upgradeCost;
+				towerBehaviour.damage = 2;
 				towerBehaviour.numberOfProjectiles = 8;
 				towerBehaviour.detectionRadius = 5;
 				towerBehaviour.shootTimer = 0.5f;
 				currentTower.transform.GetChild(2).gameObject.SetActive(false);
 				currentTower.transform.GetChild(3).gameObject.SetActive(true);
+				currentTower.transform.GetChild(1).GetComponent<Renderer>().material.color = Color.blue;
 				towerBehaviour.upgraded = true;
 			}
 		}

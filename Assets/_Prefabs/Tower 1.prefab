@@ -288,7 +288,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 1
   detectionRadius: 5
-  shootTimer: 0.75
+  shootTimer: 0.5
   numberOfProjectiles: 1
   destroyedEnemies: 0
   upgradeCost: 50
