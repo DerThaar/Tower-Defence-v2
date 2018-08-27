@@ -48,8 +48,9 @@ public class BuildTower : MonoBehaviour
 	void Instantiate()
 	{
 		build = true;
+		Vector3 instantiatePosition = Input.mousePosition;
 		if (currentPreviewBuilding == null)
-			currentPreviewBuilding = Instantiate(previewBuilding);
+			currentPreviewBuilding = Instantiate(previewBuilding, instantiatePosition, Quaternion.identity);
 	}
 
 	public void BuildTower1()

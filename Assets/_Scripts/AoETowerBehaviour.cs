@@ -9,6 +9,8 @@ public class AoETowerBehaviour : MonoBehaviour
 	public float shootTimer;
 	public int numberOfProjectiles;
 	public int destroyedEnemies;
+	public int upgradeCost;
+	public bool upgraded;
 	GameObject[] targets = new GameObject[8];
 	Quaternion[] shootQuaternions;
 	Vector3[] shootDirections;

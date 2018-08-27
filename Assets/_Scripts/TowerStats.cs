@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class TowerStats : MonoBehaviour
 {
@@ -10,7 +11,10 @@ public class TowerStats : MonoBehaviour
 	[SerializeField] TextMeshProUGUI towerFrequenzy;
 	[SerializeField] TextMeshProUGUI towerRadius;
 	[SerializeField] TextMeshProUGUI destroyedEnemies;
-	GameObject currentTower;
+	[SerializeField] TextMeshProUGUI upgradeText;
+	[SerializeField] Stats stats;
+	[SerializeField] Button upgradeButton;
+	GameObject currentTower;	
 
 
 	void Update()
@@ -50,6 +54,12 @@ public class TowerStats : MonoBehaviour
 			towerFrequenzy.text = $"Shooting Frequenzy: {towerBehaviour.shootTimer}";
 			towerRadius.text = $"Detection Radius: {towerBehaviour.detectionRadius}";
 			destroyedEnemies.text = $"Destroyed Enemies: {towerBehaviour.destroyedEnemies}";
+			upgradeText.text = $"Upgrade ({towerBehaviour.upgradeCost}$)";
+
+			if (stats.currentMoney >= towerBehaviour.upgradeCost && !towerBehaviour.upgraded)
+				upgradeButton.interactable = true;
+			else
+				upgradeButton.interactable = false;
 		}
 		else if (currentTower != null && currentTower.GetComponent<AoETowerBehaviour>() != null)
 		{
@@ -60,6 +70,42 @@ public class TowerStats : MonoBehaviour
 			towerFrequenzy.text = $"Shooting Frequenzy: {towerBehaviour.shootTimer}";
 			towerRadius.text = $"Detection Radius: {towerBehaviour.detectionRadius}";
 			destroyedEnemies.text = $"Destroyed Enemies: {towerBehaviour.destroyedEnemies}";
+			upgradeText.text = $"Upgrade ({towerBehaviour.upgradeCost}$)";
+
+			if (stats.currentMoney >= towerBehaviour.upgradeCost && !towerBehaviour.upgraded)
+				upgradeButton.interactable = true;
+			else
+				upgradeButton.interactable = false;
+		}
+	}
+
+	public void UpgradeTower()
+	{
+		if (currentTower != null && currentTower.GetComponent<TowerBehaviour>() != null)
+		{
+			TowerBehaviour towerBehaviour = currentTower.GetComponent<TowerBehaviour>();
+			if (stats.currentMoney >= towerBehaviour.upgradeCost)
+			{
+				stats.currentMoney -= towerBehaviour.upgradeCost;
+				towerBehaviour.damage = 2;
+				towerBehaviour.shootTimer = 0.5f;
+				towerBehaviour.upgraded = true;
+			}
+
+		}
+		else if (currentTower != null && currentTower.GetComponent<AoETowerBehaviour>() != null)
+		{
+			AoETowerBehaviour towerBehaviour = currentTower.GetComponent<AoETowerBehaviour>();
+			if (stats.currentMoney >= towerBehaviour.upgradeCost)
+			{
+				stats.currentMoney -= towerBehaviour.upgradeCost;
+				towerBehaviour.numberOfProjectiles = 8;
+				towerBehaviour.detectionRadius = 5;
+				towerBehaviour.shootTimer = 0.5f;
+				currentTower.transform.GetChild(2).gameObject.SetActive(false);
+				currentTower.transform.GetChild(3).gameObject.SetActive(true);
+				towerBehaviour.upgraded = true;
+			}
 		}
 	}
 }

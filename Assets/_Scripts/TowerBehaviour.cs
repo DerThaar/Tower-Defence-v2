@@ -8,6 +8,8 @@ public class TowerBehaviour : MonoBehaviour
 	public float shootTimer;
 	public int numberOfProjectiles = 1;
 	public int destroyedEnemies;
+	public int upgradeCost;
+	public bool upgraded;
 	GameObject target;
 	List<GameObject> enemiesInRange = new List<GameObject>();
 	float timer;
