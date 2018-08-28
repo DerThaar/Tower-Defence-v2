@@ -30,6 +30,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1201452521226352
+GameObject:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4853854877857704}
+  m_Layer: 0
+  m_Name: BulletSpawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1216199866320486
 GameObject:
   m_ObjectHideFlags: 1
@@ -40,7 +55,6 @@ GameObject:
   - component: {fileID: 4397564013207170}
   - component: {fileID: 33157009653589700}
   - component: {fileID: 23866343114738364}
-  - component: {fileID: 136929008358747232}
   m_Layer: 0
   m_Name: Cylinder
   m_TagString: Untagged
@@ -74,7 +88,6 @@ GameObject:
   - component: {fileID: 4907237631497294}
   - component: {fileID: 33829233404437146}
   - component: {fileID: 23652168261079012}
-  - component: {fileID: 136679560778217670}
   m_Layer: 0
   m_Name: Cylinder
   m_TagString: Untagged
@@ -89,8 +102,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1216199866320486}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0.31, z: 0.54}
-  m_LocalScale: {x: 0.45642224, y: 0.66235995, z: 0.45642224}
+  m_LocalPosition: {x: 0, y: 0, z: 0.45}
+  m_LocalScale: {x: 0.3327318, y: 0.57325196, z: 0.90686536}
   m_Children: []
   m_Father: {fileID: 4907237631497294}
   m_RootOrder: 0
@@ -102,13 +115,26 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1026336173806090}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -10.026403, y: 1.0378997, z: -173.5942}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -2.874463, y: 1.0378997, z: -172.353}
+  m_LocalScale: {x: 1, y: 0.12470001, z: 1}
   m_Children:
   - {fileID: 4907237631497294}
   - {fileID: 4940434601703016}
   m_Father: {fileID: 0}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4853854877857704
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1201452521226352}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 1.0801381}
+  m_LocalScale: {x: 1.6073554, y: 0.8443411, z: 1.6073554}
+  m_Children: []
+  m_Father: {fileID: 4907237631497294}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4907237631497294
 Transform:
@@ -117,10 +143,11 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1885947802469876}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.825, z: 0}
-  m_LocalScale: {x: 0.62214, y: 0.41013956, z: 0.62214}
+  m_LocalPosition: {x: 0, y: 1.599, z: 0}
+  m_LocalScale: {x: 0.62214, y: 1.1843555, z: 0.62214}
   m_Children:
   - {fileID: 4397564013207170}
+  - {fileID: 4853854877857704}
   m_Father: {fileID: 4693638413899272}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -286,6 +313,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64d7dc0adec00fc46a15646778519af8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bullet: {fileID: 1410607369294270, guid: d42d2c629cffab348927e49490b13d62, type: 2}
   damage: 1
   detectionRadius: 5
   shootTimer: 0.5
@@ -293,6 +321,7 @@ MonoBehaviour:
   destroyedEnemies: 0
   upgradeCost: 50
   upgraded: 0
+  enemiesInRange: []
 --- !u!135 &135876243227137736
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -305,29 +334,3 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!136 &136679560778217670
-CapsuleCollider:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1885947802469876}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
---- !u!136 &136929008358747232
-CapsuleCollider:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1216199866320486}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}

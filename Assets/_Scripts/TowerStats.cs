@@ -34,11 +34,11 @@ public class TowerStats : MonoBehaviour
 					panel.SetActive(true);
 				}
 			}
-			else
-			{
-				panel.SetActive(false);
-				currentTower = null;
-			}
+			//else
+			//{
+			//	panel.SetActive(false);
+			//	currentTower = null;
+			//}
 		}
 		else if (Input.GetButtonUp("Mouse Right"))
 		{

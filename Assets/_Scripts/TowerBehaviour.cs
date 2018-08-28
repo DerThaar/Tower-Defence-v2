@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class TowerBehaviour : MonoBehaviour
 {
+	[SerializeField] GameObject bullet;
 	public int damage;
 	public float detectionRadius;
 	public float shootTimer;
@@ -10,9 +11,10 @@ public class TowerBehaviour : MonoBehaviour
 	public int destroyedEnemies;
 	public int upgradeCost;
 	public bool upgraded;
+	public List<GameObject> enemiesInRange = new List<GameObject>();
 	GameObject target;
-	List<GameObject> enemiesInRange = new List<GameObject>();
 	float timer;
+	Vector3 lookTarget;
 
 
 	private void Awake()
@@ -36,7 +38,7 @@ public class TowerBehaviour : MonoBehaviour
 				enemiesInRange.Remove(target);
 			else
 			{
-				Vector3 lookTarget = target.transform.position;
+				lookTarget = target.transform.position;
 				lookTarget.y = transform.GetChild(0).transform.position.y;
 				transform.GetChild(0).LookAt(lookTarget);
 			}
@@ -50,16 +52,9 @@ public class TowerBehaviour : MonoBehaviour
 		if (timer >= shootTimer)
 		{
 			timer = 0;
-			if (target.GetComponent<EnemyBehaviour>().health > 0)
-			{
-				target.GetComponent<EnemyBehaviour>().health -= damage;
-
-				if (target.GetComponent<EnemyBehaviour>().health <= 0)
-				{
-					enemiesInRange.Remove(target);
-					destroyedEnemies++;
-				}
-			}
+			Transform parent = transform.GetChild(0).GetChild(1);
+			GameObject firedBullet = Instantiate(bullet, parent.position, Quaternion.identity);
+			firedBullet.GetComponent<Bullet>().tower = this;		
 		}
 	}
 
