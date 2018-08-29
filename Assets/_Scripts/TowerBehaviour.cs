@@ -43,6 +43,8 @@ public class TowerBehaviour : MonoBehaviour
 				transform.GetChild(0).LookAt(lookTarget);
 			}
 		}
+		else
+			target = null;
 	}
 
 	void Shoot()
@@ -54,7 +56,8 @@ public class TowerBehaviour : MonoBehaviour
 			timer = 0;
 			Transform parent = transform.GetChild(0).GetChild(1);
 			GameObject firedBullet = Instantiate(bullet, parent.position, Quaternion.identity);
-			firedBullet.GetComponent<Bullet>().tower = this;		
+			firedBullet.GetComponent<Bullet>().tower = this;
+			target = null;
 		}
 	}
 

@@ -4,6 +4,7 @@ using UnityEngine;
 public class AoETowerBehaviour : MonoBehaviour
 {
 	[SerializeField] LayerMask layer;
+	[SerializeField] GameObject bullet;
 	public int damage;
 	public float detectionRadius;
 	public float shootTimer;
@@ -14,11 +15,11 @@ public class AoETowerBehaviour : MonoBehaviour
 	GameObject[] targets = new GameObject[8];
 	Quaternion[] shootQuaternions;
 	Vector3[] shootDirections;
-	List<GameObject> enemiesInRange = new List<GameObject>();
+	public List<GameObject> enemiesInRange = new List<GameObject>();
 	float timer;
 
 
-	private void Start()
+	public void Start()
 	{
 		GetComponent<SphereCollider>().radius = detectionRadius;
 		shootQuaternions = new Quaternion[numberOfProjectiles];
@@ -36,7 +37,12 @@ public class AoETowerBehaviour : MonoBehaviour
 	void Update()
 	{
 		if (enemiesInRange.Count > 0)
+		{
+			if (enemiesInRange[0] == null)
+				enemiesInRange.Remove(enemiesInRange[0]);
+
 			Shoot();
+		}
 	}
 
 	void Shoot()
@@ -48,22 +54,19 @@ public class AoETowerBehaviour : MonoBehaviour
 			timer = 0;
 			for (int i = 0; i < shootDirections.Length; i++)
 			{
-				RaycastHit hit;
-				Ray ray = new Ray(transform.position, shootDirections[i]);
-				if (Physics.Raycast(ray, out hit, detectionRadius, layer))
+				if (upgraded)
 				{
-					targets[i] = hit.transform.gameObject;
-
-					if (targets[i].GetComponent<EnemyBehaviour>().health > 0)
-					{
-						targets[i].GetComponent<EnemyBehaviour>().health -= damage;
-
-						if (targets[i].GetComponent<EnemyBehaviour>().health <= 0)
-						{
-							enemiesInRange.Remove(targets[i]);
-							destroyedEnemies++;
-						}
-					}
+					Transform parent = transform.GetChild(3).GetChild(i);
+					GameObject firedBullet = Instantiate(bullet, parent.position, Quaternion.identity);
+					firedBullet.GetComponent<AoEBullet>().tower = this;
+					firedBullet.GetComponent<AoEBullet>().parent = parent;
+				}
+				else
+				{
+					Transform parent = transform.GetChild(2).GetChild(i);
+					GameObject firedBullet = Instantiate(bullet, parent.position, Quaternion.identity);
+					firedBullet.GetComponent<AoEBullet>().tower = this;
+					firedBullet.GetComponent<AoEBullet>().parent = parent;
 				}
 			}
 		}

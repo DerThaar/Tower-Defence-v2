@@ -102,12 +102,12 @@ public class TowerStats : MonoBehaviour
 			{
 				stats.currentMoney -= towerBehaviour.upgradeCost;
 				towerBehaviour.damage = 2;
-				towerBehaviour.numberOfProjectiles = 8;
-				towerBehaviour.detectionRadius = 5;
+				towerBehaviour.numberOfProjectiles = 8;				
 				towerBehaviour.shootTimer = 0.5f;
 				currentTower.transform.GetChild(2).gameObject.SetActive(false);
 				currentTower.transform.GetChild(3).gameObject.SetActive(true);
 				currentTower.transform.GetChild(1).GetComponent<Renderer>().material.color = Color.blue;
+				towerBehaviour.Start();
 				towerBehaviour.upgraded = true;
 			}
 		}
