@@ -11,8 +11,7 @@ public class AoETowerBehaviour : MonoBehaviour
 	public int numberOfProjectiles;
 	public int destroyedEnemies;
 	public int upgradeCost;
-	public bool upgraded;
-	GameObject[] targets = new GameObject[8];
+	public bool upgraded;	
 	Quaternion[] shootQuaternions;
 	Vector3[] shootDirections;
 	public List<GameObject> enemiesInRange = new List<GameObject>();

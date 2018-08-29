@@ -36,12 +36,11 @@ public class BuildTower : MonoBehaviour
 			currentPreviewBuilding.transform.position = hitInfo.point;
 
 			if (Input.GetButtonUp("Mouse Left") && hitInfo.collider && currentBuildCost <= stats.currentMoney)
-			{				
+			{
 				GameObject instantiatedBuilding = Instantiate(newBuilding, hitInfo.point, newBuilding.transform.rotation);
 				instantiatedBuilding.name = newBuilding.name;
 				stats.currentMoney -= currentBuildCost;
 			}
-
 		}
 	}
 
@@ -49,15 +48,14 @@ public class BuildTower : MonoBehaviour
 	{
 		build = true;
 		Vector3 instantiatePosition = Input.mousePosition;
-		if (currentPreviewBuilding == null)
-			currentPreviewBuilding = Instantiate(previewBuilding, instantiatePosition, Quaternion.identity);
+		currentPreviewBuilding = Instantiate(previewBuilding, instantiatePosition, Quaternion.identity);
 	}
 
 	public void BuildTower1()
 	{
 		previewBuilding = prefab[0];
 		newBuilding = building[0];
-		currentBuildCost = buildCost[0];		
+		currentBuildCost = buildCost[0];
 		Instantiate();
 	}
 
@@ -67,5 +65,5 @@ public class BuildTower : MonoBehaviour
 		newBuilding = building[1];
 		currentBuildCost = buildCost[1];
 		Instantiate();
-	}	
+	}
 }
