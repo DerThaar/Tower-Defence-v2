@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class BuildTower : MonoBehaviour
 {
@@ -22,7 +20,7 @@ public class BuildTower : MonoBehaviour
 
 	void Update()
 	{
-		if (Input.GetButtonUp("Mouse Right") && previewBuilding != null)
+		if (Input.GetButtonDown("Mouse Right") && previewBuilding != null)
 		{
 			Destroy(currentPreviewBuilding);
 			build = false;
@@ -32,10 +30,10 @@ public class BuildTower : MonoBehaviour
 		{
 			RaycastHit hitInfo;
 			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-			Physics.Raycast(ray, out hitInfo, Mathf.Infinity, LayerMask.GetMask("Border"));
+			Physics.Raycast(ray, out hitInfo, 100, LayerMask.GetMask("Border"));
 			currentPreviewBuilding.transform.position = hitInfo.point;
 
-			if (Input.GetButtonUp("Mouse Left") && hitInfo.collider && currentBuildCost <= stats.currentMoney)
+			if (Input.GetButtonDown("Mouse Left") && hitInfo.collider && currentBuildCost <= stats.currentMoney)
 			{
 				GameObject instantiatedBuilding = Instantiate(newBuilding, hitInfo.point, newBuilding.transform.rotation);
 				instantiatedBuilding.name = newBuilding.name;

@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
@@ -13,13 +11,10 @@ public class WaveSpawn : MonoBehaviour
 	[SerializeField] Button spawnButton;
 	[SerializeField] TextMeshProUGUI enemiesOnScreen;
 	[SerializeField] TextMeshProUGUI waveText;
-
-
 	public int DestroyedEnemyCount;
 	public int wave = 1;
 	public float speed = 3f;
 	public float health = 1f;
-
 	float timer;
 	int enemyCounter;
 	bool startWave;
@@ -27,6 +22,7 @@ public class WaveSpawn : MonoBehaviour
 
 	void Update()
 	{
+		//spawn enemies
 		if (enemyCounter < waveSize && startWave)
 		{
 			timer += Time.deltaTime;
@@ -37,6 +33,7 @@ public class WaveSpawn : MonoBehaviour
 				timer = 0f;
 			}
 		}
+		//prepare new wave
 		else if(DestroyedEnemyCount == waveSize)
 		{
 			enemyCounter = 0;

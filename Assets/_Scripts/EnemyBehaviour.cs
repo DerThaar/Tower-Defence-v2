@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.AI;
 
 public class EnemyBehaviour : MonoBehaviour
@@ -10,11 +8,11 @@ public class EnemyBehaviour : MonoBehaviour
 	Transform targetPoint;
 	WaveSpawn waveSpawn;
 	Stats stats;
-
-
+	
 
 	void Awake()
 	{
+		//getting all the needed references (will be changed)
 		targetPoint = GameObject.Find("End").transform;
 		waveSpawn = GameObject.Find("Spawner").GetComponent<WaveSpawn>();
 		stats = GameObject.Find("Engine").GetComponent<Stats>();
@@ -25,10 +23,10 @@ public class EnemyBehaviour : MonoBehaviour
 		health = Mathf.FloorToInt(waveSpawn.health);
 	}
 
-	void LateUpdate()
+	void Update()
 	{
+		//checking if enemy reached it's target point
 		Vector3 distance = transform.position - targetPoint.position;
-
 		if (distance.magnitude <= 0.1f)
 		{
 			waveSpawn.DestroyedEnemyCount++;
@@ -36,6 +34,7 @@ public class EnemyBehaviour : MonoBehaviour
 			Destroy(gameObject);
 		}
 
+		//checking if enemy is destroyed
 		if (health <= 0)
 		{
 			stats.currentMoney += goldDrop;

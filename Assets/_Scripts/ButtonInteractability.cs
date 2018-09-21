@@ -16,7 +16,7 @@ public class ButtonInteractability : MonoBehaviour
 	}
 
 	void Update()
-	{
+	{		 
 		if (buildTower.buildCost[prefabNumber] <= stats.currentMoney)
 			GetComponent<Button>().interactable = true;
 		else

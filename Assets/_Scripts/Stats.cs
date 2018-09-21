@@ -1,18 +1,16 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using TMPro;
 
 public class Stats : MonoBehaviour
 {
 	[SerializeField] TextMeshProUGUI healthText;
 	[SerializeField] TextMeshProUGUI moneyText;
-	[SerializeField] int maxHealth = 5;
+	[SerializeField] int maxHealth;
 	public int currentHealth;
 	public int currentMoney;
 
 
-	void Awake()
+	void Start()
 	{
 		currentHealth = maxHealth;
 	}

@@ -20,12 +20,13 @@ public class TowerStats : MonoBehaviour
 
 	void Update()
 	{
+		//get the current tower
 		if (Input.GetButtonUp("Mouse Left") && buildTower.currentPreviewBuilding == null)
 		{
 
 			RaycastHit hitInfo;
 			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-			if (Physics.Raycast(ray, out hitInfo, Mathf.Infinity, LayerMask.GetMask("Tower")))
+			if (Physics.Raycast(ray, out hitInfo, 100, LayerMask.GetMask("Tower")))
 			{
 				currentTower = hitInfo.transform.parent.gameObject;
 
@@ -33,12 +34,7 @@ public class TowerStats : MonoBehaviour
 				{
 					panel.SetActive(true);
 				}
-			}
-			//else
-			//{
-			//	panel.SetActive(false);
-			//	currentTower = null;
-			//}
+			}			
 		}
 		else if (Input.GetButtonUp("Mouse Right"))
 		{
@@ -46,6 +42,7 @@ public class TowerStats : MonoBehaviour
 			currentTower = null;
 		}
 
+		//check if current tower is a single shot tower (will possible be changed)
 		if (currentTower != null && currentTower.GetComponent<TowerBehaviour>() != null)
 		{
 			TowerBehaviour towerBehaviour = currentTower.GetComponent<TowerBehaviour>();
@@ -57,11 +54,13 @@ public class TowerStats : MonoBehaviour
 			destroyedEnemies.text = $"Destroyed Enemies: {towerBehaviour.destroyedEnemies}";
 			upgradeText.text = $"Upgrade ({towerBehaviour.upgradeCost}$)";
 
+			//check if allready upgraded
 			if (stats.currentMoney >= towerBehaviour.upgradeCost && !towerBehaviour.upgraded)
 				upgradeButton.interactable = true;
 			else
 				upgradeButton.interactable = false;
 		}
+		//check if current tower is an AoE tower (will possible be changed)
 		else if (currentTower != null && currentTower.GetComponent<AoETowerBehaviour>() != null)
 		{
 			AoETowerBehaviour towerBehaviour = currentTower.GetComponent<AoETowerBehaviour>();
@@ -73,6 +72,7 @@ public class TowerStats : MonoBehaviour
 			destroyedEnemies.text = $"Destroyed Enemies: {towerBehaviour.destroyedEnemies}";
 			upgradeText.text = $"Upgrade ({towerBehaviour.upgradeCost}$)";
 
+			//check if allready upgraded
 			if (stats.currentMoney >= towerBehaviour.upgradeCost && !towerBehaviour.upgraded)
 				upgradeButton.interactable = true;
 			else
@@ -82,6 +82,7 @@ public class TowerStats : MonoBehaviour
 
 	public void UpgradeTower()
 	{
+		//check if current tower is a single shot tower (will possible be changed) and apply the upgrade
 		if (currentTower != null && currentTower.GetComponent<TowerBehaviour>() != null)
 		{
 			TowerBehaviour towerBehaviour = currentTower.GetComponent<TowerBehaviour>();
@@ -95,6 +96,7 @@ public class TowerStats : MonoBehaviour
 			}
 
 		}
+		//check if current tower is an AoE tower (will possible be changed) and apply the upgrade
 		else if (currentTower != null && currentTower.GetComponent<AoETowerBehaviour>() != null)
 		{
 			AoETowerBehaviour towerBehaviour = currentTower.GetComponent<AoETowerBehaviour>();
